@@ -17,8 +17,8 @@ export default {
             axios.get('https://api.github.com/search/repositories?q=' + this.store.searchedType)
                 .then((response) => {
                     // handle success
-                    console.log(response.data);
-                    this.store.repoList = response.data
+                    console.log(response.data.items);
+                    this.store.repoList = response.data.items
                 })
                 .catch(function (error) {
                     // handle error

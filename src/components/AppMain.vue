@@ -4,9 +4,11 @@ import AppMainCard from "./AppMainCard.vue";
 export default {
     data() {
         return {
-            AppMainCard
         }
     },
+    components: {
+        AppMainCard
+    }
 }
 </script>
 

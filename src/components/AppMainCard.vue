@@ -17,7 +17,7 @@ export default {
 
 <template>
     <div class="row">
-        <MainSingleCard />
+        <MainSingleCard v-for="(card, index) in store.repoList" :key="index" :card="card" />
     </div>
 
 </template>

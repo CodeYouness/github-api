@@ -15,8 +15,9 @@ export default {
 
 <template>
     <!-- inizio card  -->
-    <div class="col-3 my-3">
-        <div class="profile-card-4 text-center"><img :src="card.avatar_url" class="img img-responsive">
+    <div class="col-lg-3 col-md-4 my-3">
+        <div class="profile-card-4 text-center">
+            <img :src="card.avatar_url" class="img img-responsive">
             <div class="profile-content">
                 <div class="profile-name">
                     <p>{{ card.login }}</p>
@@ -61,7 +62,6 @@ export default {
     overflow: hidden;
     position: relative;
     margin: 10px auto;
-    cursor: pointer;
 }
 
 .profile-card-4 img {

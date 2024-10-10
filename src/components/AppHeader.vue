@@ -10,6 +10,11 @@ export default {
     },
     methods: {
         getCardList() {
+            if (this.store.searchedType === "users") {
+                this.store.cardStyle = true
+            } else {
+                this.store.cardStyle = false
+            }
 
             axios.get('https://api.github.com/search/' + this.store.searchedType + '?q=' + this.store.searchedQuery)
                 .then((response) => {

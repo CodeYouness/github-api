@@ -1,6 +1,7 @@
 <script>
 import { store } from "../store";
 import MainSingleCardRepo from "./MainSingleCardRepo.vue";
+import MainSingleCardUser from "./MainSingleCardUser.vue"
 
 export default {
     data() {
@@ -9,7 +10,8 @@ export default {
         }
     },
     components: {
-        MainSingleCardRepo
+        MainSingleCardRepo,
+        MainSingleCardUser
     },
     // methods: {
     //     debug() {
@@ -25,10 +27,12 @@ export default {
 
 <template>
     <div class="row" v-if="store.cardStyle">
+        <h1>user</h1>
         <MainSingleCardRepo v-for="(card, index) in this.store.repoList" :key="index" :card="card" />
     </div>
     <div class="row" v-else>
-        <MainSingleCardRepo v-for="(card, index) in this.store.repoList" :key="index" :card="card" />
+        <h1>repo</h1>
+        <MainSingleCardUser v-for="(card, index) in this.store.repoList" :key="index" :card="card" />
     </div>
 
 </template>

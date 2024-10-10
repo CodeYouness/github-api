@@ -1,6 +1,6 @@
 <script>
 import { store } from "../store";
-import MainSingleCard from "./MainSingleCard.vue";
+import MainSingleCardRepo from "./MainSingleCardRepo.vue";
 
 export default {
     data() {
@@ -9,7 +9,7 @@ export default {
         }
     },
     components: {
-        MainSingleCard
+        MainSingleCardRepo
     },
     // methods: {
     //     debug() {
@@ -24,8 +24,11 @@ export default {
 </script>
 
 <template>
-    <div class="row">
-        <MainSingleCard v-for="(card, index) in this.store.repoList" :key="index" :card="card" />
+    <div class="row" v-if="store.cardStyle">
+        <MainSingleCardRepo v-for="(card, index) in this.store.repoList" :key="index" :card="card" />
+    </div>
+    <div class="row" v-else>
+        <MainSingleCardRepo v-for="(card, index) in this.store.repoList" :key="index" :card="card" />
     </div>
 
 </template>

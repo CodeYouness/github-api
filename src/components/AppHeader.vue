@@ -6,15 +6,16 @@ export default {
     data() {
         return {
             store,
-            searchQuery: ""
+            searchQuery: "",
+            searchType: ""
         }
     },
     methods: {
         getCardList() {
 
-            this.store.searchedType = this.searchQuery;
+            this.store.searchedQuery = this.searchQuery;
 
-            axios.get('https://api.github.com/search/repositories?q=' + this.store.searchedType)
+            axios.get('https://api.github.com/search/repositories?q=' + this.store.searchedQuery)
                 .then((response) => {
                     // handle success
                     console.log(response.data.items);
@@ -42,6 +43,11 @@ export default {
             <form class="d-flex me-auto ms-auto" role="search" @submit="handleSubmit">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                     v-model="searchQuery">
+                <select class="form-select" v-model="searchType">
+                    <option selected>Select</option>
+                    <option value="users">Users</option>
+                    <option value="repositories">Repositories</option>
+                </select>
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>

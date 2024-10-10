@@ -24,8 +24,7 @@ export default {
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                     card's
                     content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                <a :href="card.clone_url" rel="noopener noreferrer" target="_blank" class="card-link">Card link</a>
             </div>
 
         </section>

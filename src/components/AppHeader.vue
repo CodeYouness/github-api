@@ -21,7 +21,7 @@ export default {
                     q: this.store.searchedQuery,
                 },
                 headers: {
-                    "Authorization": `Bearer ${config.token}`,
+                    "Authorization": `Bearer ${window.config.token}`,
                     "X-GitHub-Api-Version": "2022-11-28",
                 }
             };
@@ -34,7 +34,7 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 });
-        }
+        },
 
         handleSubmit(event) {
             event.preventDefault();

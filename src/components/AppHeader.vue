@@ -11,22 +11,30 @@ export default {
     methods: {
         getCardList() {
             if (this.store.searchedType === "users") {
-                this.store.cardStyle = true
+                this.store.cardStyle = true;
             } else {
-                this.store.cardStyle = false
+                this.store.cardStyle = false;
             }
 
-            axios.get('https://api.github.com/search/' + this.store.searchedType + '?q=' + this.store.searchedQuery)
+            const config = {
+                params: {
+                    q: this.store.searchedQuery,
+                },
+                headers: {
+                    "Authorization": `Bearer ${config.token}`,
+                    "X-GitHub-Api-Version": "2022-11-28",
+                }
+            };
+
+            axios.get(`https://api.github.com/search/${this.store.searchedType}`, config)
                 .then((response) => {
-                    // handle success
                     console.log(response.data.items);
-                    this.store.repoList = response.data.items
+                    this.store.repoList = response.data.items;
                 })
-                .catch(function (error) {
-                    // handle error
+                .catch((error) => {
                     console.log(error);
-                })
-        },
+                });
+        }
 
         handleSubmit(event) {
             event.preventDefault();

@@ -1,7 +1,9 @@
 <script>
+import axios from "axios";
 export default {
     data() {
         return {
+            singleUser: {}
         }
     },
     props: {
@@ -9,6 +11,28 @@ export default {
             type: Object,
             required: true
         }
+    },
+    methods: {
+        getUser() {
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${window.config.token}`,
+                    "X-GitHub-Api-Version": "2022-11-28",
+                }
+            };
+
+            axios.get(`https://api.github.com/users/${this.card.login}`, config)
+                .then((response) => {
+                    console.log('utente singolo', response.data);
+                    this.singleUser = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+    },
+    mounted() {
+        this.getUser();
     }
 }
 </script>
@@ -17,7 +41,7 @@ export default {
     <!-- inizio card  -->
     <div class="col-lg-3 col-md-4 my-3">
         <div class="profile-card-4 text-center">
-            <img :src="card.avatar_url" class="img img-responsive">
+            <img :src="card.avatar_url" class="img-fluid">
             <div class="profile-content">
                 <div class="profile-name">
                     <p>{{ card.login }}</p>
@@ -27,20 +51,20 @@ export default {
                 <div class="row">
                     <div class="col-4">
                         <div class="profile-overview">
-                            <p>TWEETS</p>
-                            <h4>1300</h4>
+                            <p>REPO</p>
+                            <h4>{{ this.singleUser.public_repos }}</h4>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="profile-overview">
                             <p>FOLLOWERS</p>
-                            <h4>250</h4>
+                            <h4>{{ this.singleUser.followers }}</h4>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="profile-overview">
                             <p>FOLLOWING</p>
-                            <h4>168</h4>
+                            <h4>{{ this.singleUser.following }}</h4>
                         </div>
                     </div>
                 </div>
@@ -50,11 +74,6 @@ export default {
 </template>
 
 <style scoped>
-.col-5th {
-    flex: 0 0 20%;
-    max-width: 20%;
-}
-
 .profile-card-4 {
     background-color: #FFF;
     border-radius: 5px;
@@ -82,9 +101,10 @@ export default {
     top: -70px;
     color: #FFF;
     font-size: 17px;
-}
-
-.profile-card-4 .profile-name p {
+    text-shadow: -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
     font-weight: 600;
     font-size: 13px;
     letter-spacing: 1.5px;

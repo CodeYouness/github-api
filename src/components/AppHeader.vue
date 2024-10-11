@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             store,
+            lengthQuery: false,
         }
     },
     methods: {
@@ -26,16 +27,22 @@ export default {
                 }
             };
 
-            axios.get(`https://api.github.com/search/${this.store.searchedType}`, config)
-                .then((response) => {
-                    console.log(response.data.items);
-                    this.store.repoList = response.data.items;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            if (this.store.searchedQuery.trim().length >= 3) {
+                this.lengthQuery = false;
+                console.log('lunghezza okay')
+                axios.get(`https://api.github.com/search/${this.store.searchedType}`, config)
+                    .then((response) => {
+                        console.log(response.data.items);
+                        this.store.repoList = response.data.items;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                this.lengthQuery = true;
+                console.log('corto')
+            }
         },
-
         handleSubmit(event) {
             event.preventDefault();
             this.getCardList();
@@ -47,21 +54,30 @@ export default {
 <template>
 
     <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
+        <div class="container-fluid position-relative">
             <a class="navbar-brand position-absolute">GitHub API</a>
-            <form class="d-flex me-auto ms-auto" role="search" @submit="handleSubmit">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                    v-model="store.searchedQuery">
-                <select class="form-select" v-model="store.searchedType">
-                    <option value="" disabled>Select</option>
-                    <option value="users">Users</option>
-                    <option value="repositories">Repositories</option>
-                </select>
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-flex flex-column me-auto ms-auto">
+                <form class="d-flex" role="search" @submit="handleSubmit">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        v-model="store.searchedQuery">
+                    <select class="form-select me-2" v-model="store.searchedType">
+                        <option value="" disabled>Select</option>
+                        <option value="users">Users</option>
+                        <option value="repositories">Repositories</option>
+                    </select>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <div v-if="lengthQuery" class="text-danger border-bottom border-danger position-absolute positioning">
+                    <p class="text-danger m-0">Search string must be al least 3 characters</p>
+                </div>
+            </div>
         </div>
     </nav>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+.positioning {
+    top: 110%;
+}
+</style>

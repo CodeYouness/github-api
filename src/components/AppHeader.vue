@@ -11,6 +11,8 @@ export default {
     },
     methods: {
         getCardList() {
+            this.store.repoList = [];
+
             if (this.store.searchedType === "users") {
                 this.store.cardStyle = true;
             } else {
@@ -46,7 +48,8 @@ export default {
         handleSubmit(event) {
             event.preventDefault();
             this.getCardList();
-        }
+        },
+        
     }
 }
 </script>

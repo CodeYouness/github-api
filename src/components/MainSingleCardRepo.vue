@@ -20,7 +20,7 @@ export default {
             <img :src="card.owner.avatar_url" class="img-fluid">
             <div class="profile-content">
                 <div class="profile-name">
-                    <p>Owner: {{ card.owner.login }}</p>
+                    <!-- <p>Owner: {{ card.owner.login }}</p> -->
                 </div>
                 <a :href="card.git_url" rel="noopener noreferrer" target="_blank" class="profile-description">Go to {{
                     card.name }} repo</a>

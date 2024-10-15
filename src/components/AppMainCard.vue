@@ -42,17 +42,15 @@ export default {
 <template>
     <main v-if="isLoaded">
         <div class="row" v-if="store.cardStyle">
-            <h1>user</h1>
+            <h1 class="mx-auto" >Users</h1>
             <MainSingleCardUser v-for="(card, index) in this.store.repoList" :key="index" :card="card" />
         </div>
         <div class="row" v-else>
-            <h1>repo</h1>
+            <h1 class="mx-auto" >Repository</h1>
             <MainSingleCardRepo v-for="(card, index) in this.store.repoList" :key="index" :card="card" />
         </div>
     </main>
-    <main v-else>
-        <MainLoader/>
-    </main>
+    <MainLoader class="mx-auto" v-else/>
 
 </template>
 
